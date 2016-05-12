@@ -225,6 +225,7 @@ comparisonPredicate
 	(
 		nameExpr
 		| number
+		| GEOMETRY
 	)
 ;
 
@@ -261,6 +262,14 @@ comparisonKeyword
 	| 'lower than' # lowerThan
 	| 'lower-or-equal-to' # lowerOrEqualTo
 	| 'lower or equal to' # lowerOrEqualTo
+	| 'within' # within
+	| 'contains' # contains
+	| 'disjoint' # disjoint
+	| 'touches' # touches
+	| 'overlaps' # overlaps
+	| 'crosses' # crosses
+	| 'intersects' # intersects
+	| 'spatially-equals' # spatiallyEquals
 ;
 
 /* match a name expression */
@@ -342,6 +351,30 @@ CONCEPT_PART
 		| '_'
 		| DIGIT
 	)*
+;
+
+GEOMETRY
+:
+	'\''
+	(
+		'POINT' |
+		'LINESTRING' |
+		'POLYGON' |
+		'MULTIPOINT' |
+		'MULTILINESTRING' |
+		'MULTIPOLYGON' |
+		'GEOMETRYCOLLECTION'
+	)
+	(
+	    '(' |
+	    ')' |
+	    '.' |
+	    ',' |
+	    ' ' |
+	    '-' |
+	    DIGIT
+	)+
+	'\''
 ;
 
 NAME
